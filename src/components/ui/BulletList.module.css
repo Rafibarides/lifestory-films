@@ -1,0 +1,36 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: var(--space-3);
+  align-items: baseline;
+  color: var(--color-ink);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.marker {
+  display: inline-block;
+  width: 6px;
+  height: 1px;
+  background: var(--color-accent);
+  align-self: center;
+  transform: translateY(-1px);
+}
+
+.dot .marker {
+  width: 4px;
+  height: 4px;
+  background: var(--color-accent);
+  align-self: center;
+}
+
+.dash .marker {
+  width: 12px;
+  height: 1px;
+}

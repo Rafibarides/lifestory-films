@@ -1,0 +1,286 @@
+{
+  "meta": {
+    "siteName": "LifeStory Films",
+    "siteTagline": "Preserving legacies through cinematic documentary film"
+  },
+
+  "assets": {
+    "baseUrl": "https://pub-955ce23b5d9f4e908ac3ca25ba28d7f9.r2.dev",
+    "files": {
+      "heroVideo": "background_smaller.mp4",
+      "cinematicScreengrab1": "cinematic-screengrab1.png",
+      "cinematicScreengrab2": "cinnematic-screengrab2.png",
+      "oldLady": "old-lady1.png",
+      "youngLady": "young-lady2.png",
+      "oldMan": "old-man1.png",
+      "youngMan": "young-man1.png",
+      "oldImageScan1": "oldimagescan1.JPG",
+      "oldImageScan2": "oldimagescan2.jpg",
+      "oldImageScan3": "oldimagescan3.jpg",
+      "oldImageScan4": "oldimagescan4.jpg",
+      "productionBts1": "production-bts2.png",
+      "slideshow": [
+        "slideshow1.png",
+        "slideshow2.png",
+        "slideshow3.png",
+        "slideshow4.png",
+        "slideshow5.png"
+      ]
+    }
+  },
+
+  "nav": {
+    "logo": "LifeStory Films",
+    "buttons": [
+      { "title": "Our Process", "path": "#process" },
+      { "title": "Documentaries", "path": "#documentaries" },
+      { "title": "FAQ", "path": "#faq" },
+      { "title": "Contact Us", "path": "#contact", "isAccent": true }
+    ]
+  },
+
+  "hero": {
+    "headline": "Will your grandchildren know your story?",
+    "subheadline": "We can help",
+    "headlineFont": "Baskerville",
+    "subheadlineFont": "San Francisco",
+    "videoAspectRatio": "16 / 6"
+  },
+
+  "slideshowSection": {
+    "header": "Preserving a loved one's legacy in a documentary film that connects the past with the future.",
+    "checkmarks": [
+      "Cinematic",
+      "Quality",
+      "Family",
+      "Legacy",
+      "Priceless",
+      "Heirloom"
+    ]
+  },
+
+  "transitionSection": {
+    "pairs": [
+      {
+        "id": "lady",
+        "layout": "imageLeft",
+        "imageFrom": "old-lady1.png",
+        "imageTo": "young-lady2.png",
+        "copy": "50 years from now, a great-grandchild will press play. What will they see?"
+      },
+      {
+        "id": "man",
+        "layout": "imageRight",
+        "imageFrom": "old-man1.png",
+        "imageTo": "young-man1.png",
+        "copy": "Can you say you know their story?"
+      }
+    ]
+  },
+
+  "packagesSection": {
+    "sectionTitle": "Included In Every Documentary",
+    "sectionSubtitle": "A complete documentary package designed to capture your family's essential story with professional quality and care.",
+    "coreServices": {
+      "label": "Core Services",
+      "subcategories": [
+        {
+          "label": "Essential documentation",
+          "items": [
+            "Family questionnaire",
+            "Life story outline",
+            "One full interview",
+            "Basic b-roll (2–3 hours)",
+            "Professional cinematography",
+            "Sound recording & mixing",
+            "Basic color correction",
+            "Editing & pacing"
+          ]
+        }
+      ]
+    },
+    "deliverables": {
+      "label": "Deliverables",
+      "subcategories": [
+        {
+          "label": "Final products",
+          "items": [
+            "10–20 minute cinematic film",
+            "2–3 hour full interview footage",
+            "Heirloom book",
+            "Photo digitization"
+          ]
+        }
+      ]
+    },
+    "inclusionNote": "Included in every Documentary: All items listed above are automatically included in your experience. Additional services (multi-day shoots, drone footage, custom animations, archival research, etc.) are available as tailored add-ons based on your specific vision.",
+    "demoLabel": "Demo",
+    "demoSubtitle": "Experience our most recent documentary",
+    "customizable": {
+      "label": "Fully Customizable",
+      "subtitle": "Based on your vision, we can shape the experience with any combination of these elements. Tell us your story, and we will help you choose exactly what you need.",
+      "categories": [
+        {
+          "label": "Production Options",
+          "items": [
+            "Multi-day B-roll shooting",
+            "Family gathering shoot",
+            "Archival footage integration",
+            "Custom maps",
+            "Drone shooting",
+            "Photoshoot portrait session"
+          ]
+        },
+        {
+          "label": "Story Enhancements",
+          "items": [
+            "Custom animations (family tree, maps, timelines)",
+            "Advice film",
+            "Long film (45 min+)",
+            "Interviewing family/friends",
+            "Premiere family event"
+          ]
+        },
+        {
+          "label": "Films & Heirlooms",
+          "items": [
+            "Coffee-table book"
+          ]
+        }
+      ],
+      "closingNote": "We are happy to explain further about any of these options during our consultation to help you choose exactly what you need."
+    }
+  },
+
+  "processSection": {
+    "sectionTitle": "Our Process",
+    "sectionSubtitle": "A guided journey from discovery to delivery. We handle every detail so you can focus on what matters most — sharing your legacy.",
+    "steps": [
+      {
+        "number": 1,
+        "title": "Discovery",
+        "subtitle": "Questionnaire & consultation",
+        "description": "We begin with a heartfelt conversation to understand your family's unique story and what matters most to you.",
+        "deliverables": [
+          "Initial consultation and vision",
+          "Family questionnaire"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Quote & Payment",
+        "subtitle": "Transparent pricing",
+        "description": "We provide a clear, detailed quote with no hidden fees, making the investment simple and straightforward.",
+        "deliverables": [
+          "Detailed quote",
+          "Secure payment"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Pre-production",
+        "subtitle": "Story outline & planning",
+        "description": "We develop a detailed outline to structure your narrative with editorial care and attention to detail.",
+        "deliverables": [
+          "Life story outline",
+          "Narrative editing"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "Production",
+        "subtitle": "Interviews & filming",
+        "description": "We capture your story through professional interviews and cinematic footage with sensitivity.",
+        "deliverables": [
+          "Full interview",
+          "Basic b-roll"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Editing & Revisions",
+        "subtitle": "Narrative craft & feedback",
+        "description": "We craft the narrative, integrate archival footage, and perfect the audio-visual experience.",
+        "deliverables": [
+          "Color & sound mix",
+          "Narrative editing"
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Order & Delivery",
+        "subtitle": "Final film + heirlooms",
+        "description": "We deliver the final film along with your selected heirlooms and archival assets.",
+        "deliverables": [
+          "Final film delivery",
+          "Heirloom book"
+        ]
+      }
+    ]
+  },
+
+  "faqSection": {
+    "sectionTitle": "Got Questions?",
+    "items": [
+      {
+        "question": "When is the best time to do this?",
+        "answer": "The best films aren't made under pressure, they're made when your loved one has the energy, the clarity, and the joy to really tell their story. Don't wait for a health scare to be the reason you finally do this."
+      },
+      {
+        "question": "What will actually be in the film?",
+        "answer": "A feature-length documentary, about 90 minutes, built around a real, structured interview process. We help your loved one shape their life into a narrative: the chapters, the turning points, the things they've never quite found the words to say. You'll also receive a physical heirloom book and a full digital copy. Something to watch, and something to hold."
+      },
+      {
+        "question": "How do you get someone to open up on camera?",
+        "answer": "That's exactly what we're trained for. Long before filming begins, we do pre-interviews and story coaching to help your loved one figure out what they want to say and how to say it. By the time the cameras are on, it doesn't feel like an interview — it feels like a conversation they've been waiting to have."
+      },
+      {
+        "question": "How is this different from a home video?",
+        "answer": "A home video captures a moment. We capture a life. Our team of producers, writers, and filmmakers shapes everything, the narrative arc, the pacing, the visuals, into something that actually feels like a film worth watching again and again, not just once at a holiday dinner."
+      },
+      {
+        "question": "How long does the whole process take?",
+        "answer": "Most LifeStory Films take 3 to 4 weeks from start to delivery. A lot happens behind the scenes. Story development, photo scanning, filming, and editing, but we guide you through every step. Every story is different, and we don't rush what matters."
+      },
+      {
+        "question": "Do you travel outside of New York?",
+        "answer": "We're based in Brooklyn and serve all of Metropolitan New York. For the right project, we're happy to travel — just reach out and we'll figure it out together."
+      },
+      {
+        "question": "How do I get started?",
+        "answer": "Call, text, or email, whatever's easiest for you. There's no pressure and no commitment in the first conversation. Just tell us a little about who you want to film, and we'll take it from there."
+      }
+    ]
+  },
+
+  "contactSection": {
+    "phone": "917 685 6429",
+    "email": "jacob@yourlifedocumentary.com",
+    "cta": "Get on a discovery call today"
+  },
+
+  "footer": {
+    "logo": "LifeStory Films",
+    "tagline": "Every life deserves to be remembered.",
+    "columns": [
+      {
+        "heading": "Company",
+        "links": [
+          { "title": "Our Process", "path": "#process" },
+          { "title": "Documentaries", "path": "#documentaries" },
+          { "title": "FAQ", "path": "#faq" },
+          { "title": "Contact Us", "path": "#contact" }
+        ]
+      },
+      {
+        "heading": "Contact",
+        "links": [
+          { "title": "917 685 6429", "path": "tel:9176856429" },
+          { "title": "jacob@yourlifedocumentary.com", "path": "mailto:jacob@yourlifedocumentary.com" }
+        ]
+      }
+    ],
+    "location": "Based in Brooklyn, NY. Serving all of Metropolitan New York.",
+    "copyright": "© 2026 LifeStory Films. All rights reserved."
+  }
+}
