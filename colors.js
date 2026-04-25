@@ -8,5 +8,7 @@ export const palette = {
     black: "#000000",
     white: "#FAF7EF",
   };
+
+  //light theme colors
   
   export default palette;
