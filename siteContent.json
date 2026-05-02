@@ -73,28 +73,27 @@
         "layout": "imageRight",
         "imageFrom": "old-man1.png",
         "imageTo": "young-man1.png",
-        "copy": "Can you say you know their story?"
+        "copy": "Can you say you truly know their story?"
       }
     ]
   },
 
   "packagesSection": {
-    "sectionTitle": "Included In Every Documentary",
-    "sectionSubtitle": "A complete documentary package designed to capture your family's essential story with professional quality and care.",
+    "sectionTitle": "What Every Documentary Includes",
+    "sectionSubtitle": "A complete documentary package designed to capture your family's story with the craft and care it deserves.",
     "coreServices": {
       "label": "Core Services",
       "subcategories": [
         {
-          "label": "Essential documentation",
+          "label": "The Essentials",
           "items": [
             "Family questionnaire",
             "Life story outline",
-            "One full interview",
-            "Basic b-roll (2–3 hours)",
+            "Comprehensive interview",
+            "Cinematic B-roll",
             "Professional cinematography",
-            "Sound recording & mixing",
-            "Basic color correction",
-            "Editing & pacing"
+            "Professional color grading",
+            "Editing and pacing"
           ]
         }
       ]
@@ -103,17 +102,17 @@
       "label": "Deliverables",
       "subcategories": [
         {
-          "label": "Final products",
+          "label": "What You Receive",
           "items": [
-            "10–20 minute cinematic film",
-            "2–3 hour full interview footage",
+            "Cinematic film",
+            "Full interview archive",
             "Heirloom book",
             "Photo digitization"
           ]
         }
       ]
     },
-    "inclusionNote": "Included in every Documentary: All items listed above are automatically included in your experience. Additional services (multi-day shoots, drone footage, custom animations, archival research, etc.) are available as tailored add-ons based on your specific vision.",
+    "inclusionNote": "Everything listed above is included in every documentary. Additional services (multi-day shoots, drone footage, custom animations, archival research, and more) are available as add-ons tailored to your specific vision.",
     "demoLabel": "Demo",
     "demoSubtitle": "Experience our most recent documentary",
     "customizable": {
@@ -123,43 +122,42 @@
         {
           "label": "Production Options",
           "items": [
-            "Multi-day B-roll shooting",
             "Family gathering shoot",
             "Archival footage integration",
             "Custom maps",
-            "Drone shooting",
-            "Photoshoot portrait session"
+            "Drone footage",
+            "Portrait photography session"
           ]
         },
         {
           "label": "Story Enhancements",
           "items": [
             "Custom animations (family tree, maps, timelines)",
-            "Advice film",
-            "Long film (45 min+)",
-            "Interviewing family/friends",
-            "Premiere family event"
+            "Legacy advice film",
+            "Extended documentary (45+ minutes)",
+            "Interviews with family and friends",
+            "Private family premiere event"
           ]
         },
         {
-          "label": "Films & Heirlooms",
+          "label": "Films and Heirlooms",
           "items": [
-            "Coffee-table book"
+            "Coffee table book"
           ]
         }
       ],
-      "closingNote": "We are happy to explain further about any of these options during our consultation to help you choose exactly what you need."
+      "closingNote": "We are happy to walk you through any of these options during your consultation and help you choose exactly what fits your story."
     }
   },
 
   "processSection": {
     "sectionTitle": "Our Process",
-    "sectionSubtitle": "A guided journey from discovery to delivery. We handle every detail so you can focus on what matters most — sharing your legacy.",
+    "sectionSubtitle": "A guided journey from discovery to delivery. We handle every detail so you can focus on what matters most: sharing your legacy.",
     "steps": [
       {
         "number": 1,
         "title": "Discovery",
-        "subtitle": "Questionnaire & consultation",
+        "subtitle": "Questionnaire and consultation",
         "description": "We begin with a heartfelt conversation to understand your family's unique story and what matters most to you.",
         "deliverables": [
           "Initial consultation and vision",
@@ -168,7 +166,7 @@
       },
       {
         "number": 2,
-        "title": "Quote & Payment",
+        "title": "Quote and Payment",
         "subtitle": "Transparent pricing",
         "description": "We provide a clear, detailed quote with no hidden fees, making the investment simple and straightforward.",
         "deliverables": [
@@ -178,39 +176,39 @@
       },
       {
         "number": 3,
-        "title": "Pre-production",
-        "subtitle": "Story outline & planning",
+        "title": "Pre-Production",
+        "subtitle": "Story outline and planning",
         "description": "We develop a detailed outline to structure your narrative with editorial care and attention to detail.",
         "deliverables": [
           "Life story outline",
-          "Narrative editing"
+          "Story structure development"
         ]
       },
       {
         "number": 4,
         "title": "Production",
-        "subtitle": "Interviews & filming",
-        "description": "We capture your story through professional interviews and cinematic footage with sensitivity.",
+        "subtitle": "Interviews and filming",
+        "description": "We capture your story through professional interviews and cinematic footage, conducted with sensitivity and care.",
         "deliverables": [
           "Full interview",
-          "Basic b-roll"
+          "Cinematic B-roll"
         ]
       },
       {
         "number": 5,
-        "title": "Editing & Revisions",
-        "subtitle": "Narrative craft & feedback",
-        "description": "We craft the narrative, integrate archival footage, and perfect the audio-visual experience.",
+        "title": "Editing and Revisions",
+        "subtitle": "Narrative craft and feedback",
+        "description": "We shape the narrative, integrate archival material, and perfect every element of the audio-visual experience.",
         "deliverables": [
-          "Color & sound mix",
+          "Color grade and sound mix",
           "Narrative editing"
         ]
       },
       {
         "number": 6,
-        "title": "Order & Delivery",
-        "subtitle": "Final film + heirlooms",
-        "description": "We deliver the final film along with your selected heirlooms and archival assets.",
+        "title": "Delivery",
+        "subtitle": "Final film and heirlooms",
+        "description": "We deliver the finished film along with your selected heirlooms and archival assets, ready to be passed down.",
         "deliverables": [
           "Final film delivery",
           "Heirloom book"
@@ -224,15 +222,15 @@
     "items": [
       {
         "question": "When is the best time to do this?",
-        "answer": "The best films aren't made under pressure, they're made when your loved one has the energy, the clarity, and the joy to really tell their story. Don't wait for a health scare to be the reason you finally do this."
+        "answer": "The best films aren't made under pressure. They're made when your loved one has the energy, the clarity, and the joy to really tell their story. Don't wait for a health scare to be the reason you finally do this."
       },
       {
         "question": "What will actually be in the film?",
-        "answer": "A feature-length documentary, about 90 minutes, built around a real, structured interview process. We help your loved one shape their life into a narrative: the chapters, the turning points, the things they've never quite found the words to say. You'll also receive a physical heirloom book and a full digital copy. Something to watch, and something to hold."
+        "answer": "A feature-length documentary, around 90 minutes, built around a real, structured interview process. We help your loved one shape their life into a narrative: the chapters, the turning points, the things they've never quite found the words to say. You'll also receive a physical heirloom book and a full digital archive. Something to watch, and something to hold."
       },
       {
         "question": "How do you get someone to open up on camera?",
-        "answer": "That's exactly what we're trained for. Long before filming begins, we do pre-interviews and story coaching to help your loved one figure out what they want to say and how to say it. By the time the cameras are on, it doesn't feel like an interview — it feels like a conversation they've been waiting to have."
+        "answer": "That's exactly what we're trained for. Long before filming begins, we conduct pre-interviews and story coaching to help your loved one figure out what they want to say and how to say it. By the time the cameras are on, it doesn't feel like an interview. It feels like a conversation they've been waiting to have."
       },
       {
         "question": "How is this different from a home video?",
@@ -240,11 +238,11 @@
       },
       {
         "question": "How long does the whole process take?",
-        "answer": "Most LifeStory Films take 3 to 4 weeks from start to delivery. A lot happens behind the scenes. Story development, photo scanning, filming, and editing, but we guide you through every step. Every story is different, and we don't rush what matters."
+        "answer": "Most LifeStory Films take three to four weeks from start to delivery. A lot happens behind the scenes: story development, photo scanning, filming, and editing. We guide you through every step, and we never rush what matters."
       },
       {
         "question": "Do you travel outside of New York?",
-        "answer": "We're based in Brooklyn and serve all of Metropolitan New York. For the right project, we're happy to travel — just reach out and we'll figure it out together."
+        "answer": "We're based in Brooklyn and serve all of Metropolitan New York. For the right project, we're happy to travel. Just reach out and we'll figure it out together."
       },
       {
         "question": "How do I get started?",
@@ -256,7 +254,7 @@
   "contactSection": {
     "phone": "917 685 6429",
     "email": "jacob@yourlifedocumentary.com",
-    "cta": "Get on a discovery call today"
+    "cta": "Book your discovery call today"
   },
 
   "footer": {

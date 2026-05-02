@@ -87,8 +87,13 @@
     padding-block: var(--space-8);
   }
 
+  /* On mobile, drop the grid entirely and stack image-then-copy with flex.
+     This sidesteps any chance of the two grid items occupying the same
+     row/column and overlapping. */
   .inner {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: var(--space-6);
   }
 
@@ -96,16 +101,26 @@
   .imageRight .media,
   .imageLeft .copyWrap,
   .imageRight .copyWrap {
-    grid-column: 1 / -1;
-    justify-self: center;
-  }
-
-  .copyWrap {
-    justify-self: stretch;
-    max-width: 100%;
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: auto;
   }
 
   .media {
-    max-width: min(340px, 80vw);
+    order: 1;
+    max-width: min(340px, 78vw);
+  }
+
+  .copyWrap {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding-inline: var(--space-3);
+    justify-content: center;
+  }
+
+  .copy {
+    font-size: clamp(18px, 5.2vw, 24px);
   }
 }
