@@ -1,0 +1,43 @@
+# Allow all crawlers, including social link-preview scrapers.
+# This is intentionally permissive: the site is a public marketing page
+# and we want it indexed and previewable everywhere.
+
+User-agent: *
+Allow: /
+
+# Explicit allowlist for social / link-preview bots that sometimes
+# refuse to scrape unless they see themselves named.
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: facebookcatalog
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+Sitemap: https://yourlifedocumentary.com/sitemap.xml
