@@ -1,6 +1,5 @@
 import Section from "../ui/Section.jsx";
 import Container from "../ui/Container.jsx";
-import CheckList from "../ui/CheckList.jsx";
 import PhotoReel from "./PhotoReel.jsx";
 import { content, assetUrl } from "../../data/content.js";
 import styles from "./SlideshowSection.module.css";
@@ -24,9 +23,6 @@ export default function SlideshowSection({ id }) {
         <div className={styles.grid}>
           <div className={styles.text}>
             <h2 className={styles.header}>{slideshowSection.header}</h2>
-            <div className={styles.checkmarks}>
-              <CheckList items={slideshowSection.checkmarks} />
-            </div>
           </div>
           <div className={styles.tracks}>
             <PhotoReel
