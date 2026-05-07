@@ -1,0 +1,51 @@
+name: Build and deploy to GitHub Pages
+
+# Trigger:
+#   - Every push to `main` (so the Worker's commit from /admin auto-deploys).
+#   - Manually via "Run workflow" if you ever need to re-deploy.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Only run one deploy at a time. If a second push happens while the first
+# build is still running, the older one is cancelled. This is safe for a
+# marketing site and avoids races on the gh-pages branch.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Publishes the contents of dist/ to the `gh-pages` branch, which is
+      # what GitHub Pages currently serves for this repo. The CNAME file in
+      # public/ is copied into dist/ at build time, so the custom domain
+      # binding survives every deploy.
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          commit_message: "deploy: ${{ github.event.head_commit.message }}"
+          enable_jekyll: false
