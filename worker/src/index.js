@@ -5,6 +5,9 @@
 //
 // Endpoints:
 //   POST /update-content    -> auth + commit a new siteContent.json
+//   POST /verify-password   -> auth check only (no commit). Used by the
+//                              /admin page to gate the editor UI before any
+//                              content is fetched or rendered.
 //   GET  /health            -> { ok: true } (sanity check)
 //   OPTIONS *               -> CORS preflight
 //
@@ -48,9 +51,33 @@ export default {
       }
     }
 
+    if (request.method === "POST" && url.pathname === "/verify-password") {
+      return handleVerify(request, env);
+    }
+
     return json({ error: "Not found" }, 404, env);
   },
 };
+
+// Auth-only endpoint. Lets the /admin page confirm the password is correct
+// (so it can unlock the editor) without committing anything. Returns the
+// same 401 envelope as /update-content so the frontend can reuse error
+// handling.
+function handleVerify(request, env) {
+  if (!env.ADMIN_PASSWORD) {
+    return json(
+      { error: "Worker misconfigured. Missing: ADMIN_PASSWORD" },
+      500,
+      env,
+    );
+  }
+  const auth = request.headers.get("Authorization") || "";
+  const supplied = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
+  if (!supplied || !timingSafeEqual(supplied, env.ADMIN_PASSWORD)) {
+    return json({ error: "Invalid password" }, 401, env);
+  }
+  return json({ ok: true }, 200, env);
+}
 
 async function handleUpdate(request, env) {
   const missing = [...REQUIRED_SECRETS, ...REQUIRED_VARS].filter(
