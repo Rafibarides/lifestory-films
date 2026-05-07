@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>LifeStory Films Admin</title>
+    <style>
+      :root {
+        --bg: #1f0f16;
+        --surface: #2a1620;
+        --ink: #faf7ef;
+        --muted: rgba(250, 247, 239, 0.6);
+        --accent: #db9436;
+        --rule: rgba(250, 247, 239, 0.14);
+        --error: #ff6b6b;
+        --ok: #5fd49a;
+        --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, sans-serif;
+        --font-display: "Baskerville", "Georgia", serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        line-height: 1.5;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 560px;
+        background: var(--surface);
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      }
+
+      h1 {
+        font-family: var(--font-display);
+        font-size: 32px;
+        margin: 0 0 4px;
+        letter-spacing: -0.01em;
+      }
+
+      .eyebrow {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--accent);
+        margin-bottom: 12px;
+      }
+
+      .lede {
+        color: var(--muted);
+        margin: 0 0 28px;
+        font-size: 14.5px;
+      }
+
+      label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      input[type="password"],
+      input[type="text"] {
+        width: 100%;
+        padding: 12px 14px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        color: var(--ink);
+        font-family: inherit;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 160ms;
+      }
+
+      input:focus {
+        border-color: var(--accent);
+      }
+
+      .field {
+        margin-bottom: 20px;
+      }
+
+      .drop {
+        border: 1.5px dashed var(--rule);
+        border-radius: 12px;
+        padding: 36px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition:
+          border-color 160ms,
+          background 160ms;
+        margin-bottom: 8px;
+      }
+
+      .drop:hover,
+      .drop.dragover {
+        border-color: var(--accent);
+        background: rgba(219, 148, 54, 0.05);
+      }
+
+      .drop.has-file {
+        border-style: solid;
+        border-color: var(--ok);
+        background: rgba(95, 212, 154, 0.06);
+      }
+
+      .drop input[type="file"] {
+        display: none;
+      }
+
+      .drop strong {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .drop small {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .filename {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 13px;
+        color: var(--ok);
+        margin-top: 8px;
+        word-break: break-all;
+      }
+
+      .summary {
+        margin-top: 16px;
+        padding: 14px 16px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        font-size: 13px;
+        color: var(--muted);
+        border: 1px solid var(--rule);
+      }
+
+      .summary strong {
+        color: var(--ink);
+      }
+
+      button.primary {
+        width: 100%;
+        margin-top: 16px;
+        padding: 14px 18px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        background: var(--accent);
+        color: var(--bg);
+        border: 0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition:
+          opacity 160ms,
+          transform 100ms;
+      }
+
+      button.primary:hover:not(:disabled) {
+        opacity: 0.9;
+      }
+
+      button.primary:active:not(:disabled) {
+        transform: scale(0.99);
+      }
+
+      button.primary:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .msg {
+        margin-top: 18px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 14px;
+        display: none;
+      }
+
+      .msg.show {
+        display: block;
+      }
+
+      .msg.error {
+        background: rgba(255, 107, 107, 0.1);
+        border: 1px solid rgba(255, 107, 107, 0.4);
+        color: var(--error);
+      }
+
+      .msg.ok {
+        background: rgba(95, 212, 154, 0.1);
+        border: 1px solid rgba(95, 212, 154, 0.4);
+        color: var(--ok);
+      }
+
+      .msg a {
+        color: inherit;
+      }
+
+      .footer-note {
+        margin-top: 28px;
+        font-size: 12px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .footer-note a {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="eyebrow">LifeStory Films</div>
+      <h1>Content Admin</h1>
+      <p class="lede">
+        Drop a new <code>siteContent.json</code> to update the live site. The
+        file you drop will overwrite <code>siteContent.json</code> in the repo
+        and the site will rebuild automatically (~60s).
+      </p>
+
+      <form id="form">
+        <div class="field">
+          <label for="password">Admin password</label>
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>New content file</label>
+          <label class="drop" id="drop">
+            <input id="file" type="file" accept="application/json,.json" />
+            <strong>Drop JSON here, or click to choose</strong>
+            <small>Any filename is OK. It will be saved as siteContent.json.</small>
+            <div id="filename" class="filename"></div>
+          </label>
+          <div id="summary" class="summary" style="display: none"></div>
+        </div>
+
+        <button id="submit" class="primary" type="submit" disabled>
+          Publish to live site
+        </button>
+
+        <div id="msg" class="msg"></div>
+      </form>
+
+      <p class="footer-note">
+        <a href="/">&larr; Back to site</a>
+      </p>
+    </main>
+
+    <script>
+      // ─────────────────────────────────────────────────────────────────────
+      // Config: edit WORKER_URL after you deploy the Cloudflare Worker.
+      // The path /update-content is handled by the worker we ship.
+      // ─────────────────────────────────────────────────────────────────────
+      const WORKER_URL =
+        "https://lifestory-admin.jacob-69f.workers.dev/update-content";
+
+      // GitHub raw URL of the current siteContent.json on `main`. Used to
+      // shape-check the dropped file (top-level keys must match) so a
+      // malformed upload can't blank the site. raw.githubusercontent.com
+      // sets permissive CORS on public files, so the browser can read it.
+      const CURRENT_CONTENT_URL =
+        "https://raw.githubusercontent.com/Rafibarides/lifestory-films/main/siteContent.json";
+
+      let currentContent = null;
+      let parsedNew = null;
+
+      // Sanity check: warn loudly if the worker URL hasn't been configured yet.
+      const isUnconfigured = WORKER_URL.includes("YOUR-CF-SUBDOMAIN");
+
+      const fileInput = document.getElementById("file");
+      const drop = document.getElementById("drop");
+      const filenameEl = document.getElementById("filename");
+      const summaryEl = document.getElementById("summary");
+      const submitBtn = document.getElementById("submit");
+      const msg = document.getElementById("msg");
+      const passwordInput = document.getElementById("password");
+      const form = document.getElementById("form");
+
+      function showMsg(text, kind = "error") {
+        msg.textContent = "";
+        msg.innerHTML = text;
+        msg.className = `msg show ${kind}`;
+      }
+
+      function clearMsg() {
+        msg.className = "msg";
+      }
+
+      async function loadCurrent() {
+        try {
+          const res = await fetch(CURRENT_CONTENT_URL, { cache: "no-store" });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          currentContent = await res.json();
+        } catch (err) {
+          showMsg(
+            "Couldn't load the current siteContent.json from GitHub. The shape check will be skipped.",
+            "error",
+          );
+        }
+      }
+      loadCurrent();
+
+      if (isUnconfigured) {
+        showMsg(
+          "Setup incomplete: WORKER_URL in <code>public/admin/index.html</code> still has the placeholder. Deploy the Cloudflare Worker (see <code>worker/README.md</code>) and replace <code>YOUR-CF-SUBDOMAIN</code> with the URL Wrangler printed.",
+          "error",
+        );
+      }
+
+      // ─── Drag and drop wiring ───────────────────────────────────────────
+      ["dragenter", "dragover"].forEach((evt) => {
+        drop.addEventListener(evt, (e) => {
+          e.preventDefault();
+          drop.classList.add("dragover");
+        });
+      });
+      ["dragleave", "drop"].forEach((evt) => {
+        drop.addEventListener(evt, (e) => {
+          e.preventDefault();
+          drop.classList.remove("dragover");
+        });
+      });
+      drop.addEventListener("drop", (e) => {
+        const file = e.dataTransfer?.files?.[0];
+        if (file) handleFile(file);
+      });
+      fileInput.addEventListener("change", () => {
+        const file = fileInput.files?.[0];
+        if (file) handleFile(file);
+      });
+
+      // ─── Validate dropped file ──────────────────────────────────────────
+      async function handleFile(file) {
+        clearMsg();
+        parsedNew = null;
+        submitBtn.disabled = true;
+        drop.classList.remove("has-file");
+        filenameEl.textContent = "";
+        summaryEl.style.display = "none";
+
+        if (!file.name.toLowerCase().endsWith(".json")) {
+          showMsg("That file isn't a .json file.", "error");
+          return;
+        }
+        if (file.size > 1024 * 1024) {
+          showMsg("File is over 1MB. siteContent.json should be much smaller.", "error");
+          return;
+        }
+
+        let text;
+        try {
+          text = await file.text();
+        } catch (err) {
+          showMsg("Couldn't read the file.", "error");
+          return;
+        }
+
+        let obj;
+        try {
+          obj = JSON.parse(text);
+        } catch (err) {
+          showMsg("That file is not valid JSON: " + escapeHtml(err.message), "error");
+          return;
+        }
+
+        if (currentContent) {
+          const currentKeys = Object.keys(currentContent).sort();
+          const newKeys = Object.keys(obj).sort();
+          const missing = currentKeys.filter((k) => !newKeys.includes(k));
+          const added = newKeys.filter((k) => !currentKeys.includes(k));
+          if (missing.length) {
+            showMsg(
+              "Top-level keys missing in the new file: <strong>" +
+                missing.map(escapeHtml).join(", ") +
+                "</strong>. Refusing to publish to avoid breaking the site.",
+              "error",
+            );
+            return;
+          }
+          if (added.length) {
+            // New keys are allowed but flagged; site will just ignore them
+            // unless components are updated to read them.
+            const note =
+              "Note: added top-level keys: <strong>" +
+                added.map(escapeHtml).join(", ") +
+                "</strong> (these won't render unless components reference them).";
+            showMsg(note, "ok");
+          }
+        }
+
+        parsedNew = obj;
+        drop.classList.add("has-file");
+        filenameEl.textContent =
+          file.name + " \u2192 will be saved as siteContent.json";
+        summaryEl.innerHTML = renderSummary(obj);
+        summaryEl.style.display = "block";
+        submitBtn.disabled = false;
+      }
+
+      function renderSummary(obj) {
+        const keys = Object.keys(obj);
+        const bytes = new Blob([JSON.stringify(obj)]).size;
+        return (
+          "<strong>" +
+          keys.length +
+          "</strong> top-level sections, <strong>" +
+          formatBytes(bytes) +
+          "</strong> total. Sections: " +
+          keys.map((k) => "<code>" + escapeHtml(k) + "</code>").join(", ")
+        );
+      }
+
+      function formatBytes(n) {
+        if (n < 1024) return n + " B";
+        if (n < 1024 * 1024) return (n / 1024).toFixed(1) + " KB";
+        return (n / 1024 / 1024).toFixed(2) + " MB";
+      }
+
+      function escapeHtml(s) {
+        const map = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        };
+        return String(s).replace(/[&<>"']/g, (c) => map[c]);
+      }
+
+      // ─── Submit ────────────────────────────────────────────────────────
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!parsedNew) return;
+        const password = passwordInput.value.trim();
+        if (!password) {
+          showMsg("Enter the admin password.", "error");
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Publishing\u2026";
+        clearMsg();
+
+        try {
+          const res = await fetch(WORKER_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + password,
+            },
+            body: JSON.stringify({ content: parsedNew }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            showMsg(
+              "Publish failed: " +
+                escapeHtml(data.error || "HTTP " + res.status),
+              "error",
+            );
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Publish to live site";
+            return;
+          }
+          let html =
+            "Published. The site will rebuild and go live in ~60s.";
+          if (data.commitUrl) {
+            html +=
+              ' <a href="' +
+              escapeHtml(data.commitUrl) +
+              '" target="_blank" rel="noopener">View commit \u2197</a>';
+          }
+          showMsg(html, "ok");
+          submitBtn.textContent = "Published";
+        } catch (err) {
+          showMsg("Network error: " + escapeHtml(err.message || err), "error");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Publish to live site";
+        }
+      });
+    </script>
+  </body>
+</html>
