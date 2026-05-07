@@ -36,6 +36,113 @@
         min-height: 100vh;
       }
 
+      [hidden] { display: none !important; }
+
+      /* ─── Lock screen ──────────────────────────────────────────────── */
+
+      .lock-screen {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        z-index: 100;
+      }
+
+      .lock-card {
+        width: 100%;
+        max-width: 420px;
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 16px;
+        padding: 36px 32px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      }
+
+      .lock-card .eyebrow {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+
+      .lock-card h1 {
+        font-family: var(--font-display);
+        font-size: 28px;
+        margin: 0 0 8px;
+        letter-spacing: -0.01em;
+      }
+
+      .lock-card .lede {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0 0 24px;
+      }
+
+      .lock-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .lock-form label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+      }
+
+      .lock-form input {
+        width: 100%;
+        padding: 12px 14px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        color: var(--ink);
+        font-family: inherit;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 160ms;
+      }
+
+      .lock-form input:focus {
+        border-color: var(--accent);
+      }
+
+      .lock-form .btn {
+        width: 100%;
+        margin-top: 4px;
+      }
+
+      .lock-msg {
+        margin-top: 14px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.5;
+        display: none;
+      }
+
+      .lock-msg.show { display: block; }
+      .lock-msg.error {
+        background: rgba(255, 107, 107, 0.1);
+        border: 1px solid rgba(255, 107, 107, 0.4);
+        color: var(--error);
+      }
+
+      .lock-msg code {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
+
+      /* ─── Topbar (post-unlock) ─────────────────────────────────────── */
+
       .topbar {
         position: sticky;
         top: 0;
@@ -71,34 +178,31 @@
         letter-spacing: -0.01em;
       }
 
-      .pwd {
-        display: flex;
+      .lock-indicator {
+        display: inline-flex;
         align-items: center;
         gap: 8px;
-      }
-
-      .pwd label {
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.16em;
+        padding: 8px 12px;
+        font-size: 12px;
         color: var(--muted);
-      }
-
-      .pwd input {
-        width: 180px;
-        padding: 9px 12px;
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(0, 0, 0, 0.2);
         border: 1px solid var(--rule);
         border-radius: 8px;
-        color: var(--ink);
+        cursor: pointer;
         font-family: inherit;
-        font-size: 14px;
-        outline: none;
-        transition: border-color 160ms;
+        transition: color 160ms, border-color 160ms;
       }
 
-      .pwd input:focus {
+      .lock-indicator:hover {
+        color: var(--accent);
         border-color: var(--accent);
+      }
+
+      .lock-indicator .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ok);
       }
 
       .btn {
@@ -268,15 +372,6 @@
         background: rgba(219, 148, 54, 0.06);
       }
 
-      .field-row .changed-tag {
-        margin-top: 4px;
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        color: var(--dirty);
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-      }
-
       .placeholder {
         padding: 60px 20px;
         text-align: center;
@@ -340,8 +435,7 @@
           grid-template-columns: 1fr;
           gap: 10px;
         }
-        .pwd { width: 100%; }
-        .pwd input { flex: 1; width: auto; }
+        .lock-indicator { width: 100%; justify-content: center; }
         .btn { width: 100%; }
         .field-row {
           grid-template-columns: 1fr;
@@ -352,58 +446,88 @@
     </style>
   </head>
   <body>
-    <div class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">
-          <div class="eyebrow">LifeStory Films</div>
-          <h1>Content Admin</h1>
-        </div>
-        <div class="pwd">
-          <label for="password">Password</label>
+    <!-- Lock screen: blocks the editor and the GitHub fetch until the
+         Worker confirms the password. Anyone visiting /admin sees only this
+         card (no content, no field paths, nothing) until they unlock. -->
+    <div id="lockScreen" class="lock-screen">
+      <div class="lock-card">
+        <div class="eyebrow">LifeStory Films</div>
+        <h1>Content Admin</h1>
+        <p class="lede">
+          Enter the admin password to unlock the editor. Your password is also
+          used when you publish.
+        </p>
+        <form id="lockForm" class="lock-form">
+          <label for="lockPassword">Admin password</label>
           <input
-            id="password"
+            id="lockPassword"
             type="password"
             autocomplete="current-password"
-            placeholder="Admin password"
+            autofocus
+            required
           />
-        </div>
-        <button id="publishBtn" class="btn" disabled>
-          Publish to live site
-        </button>
+          <button id="unlockBtn" class="btn" type="submit">Unlock editor</button>
+          <div id="lockMsg" class="lock-msg"></div>
+        </form>
       </div>
     </div>
 
-    <main>
-      <p class="lede">
-        Edit your site content below. Changes are tracked locally and only go
-        live when you click <strong>Publish</strong>. The current content is
-        loaded from <code>main</code> on every page load.
-      </p>
-
-      <div id="statusBar" class="status-bar">
-        <span id="statusText">Loading current content from GitHub&hellip;</span>
-        <div class="status-actions">
-          <button id="reloadBtn" class="btn secondary" disabled>
-            Reload from main
+    <!-- App shell: hidden until unlock succeeds. -->
+    <div id="appShell" hidden>
+      <div class="topbar">
+        <div class="topbar-inner">
+          <div class="brand">
+            <div class="eyebrow">LifeStory Films</div>
+            <h1>Content Admin</h1>
+          </div>
+          <button
+            id="lockAgainBtn"
+            class="lock-indicator"
+            type="button"
+            title="Lock editor"
+          >
+            <span class="dot"></span>
+            Unlocked &middot; Lock
+          </button>
+          <button id="publishBtn" class="btn" disabled>
+            Publish to live site
           </button>
         </div>
       </div>
 
-      <div id="msg" class="msg"></div>
+      <main>
+        <p class="lede">
+          Edit your site content below. Changes are tracked locally and only
+          go live when you click <strong>Publish</strong>. The current content
+          is loaded from <code>main</code> on every unlock.
+        </p>
 
-      <div id="editor">
-        <div class="placeholder">Loading editor&hellip;</div>
-      </div>
+        <div id="statusBar" class="status-bar">
+          <span id="statusText">Loading current content from GitHub&hellip;</span>
+          <div class="status-actions">
+            <button id="reloadBtn" class="btn secondary" disabled>
+              Reload from main
+            </button>
+          </div>
+        </div>
 
-      <p class="footer-note"><a href="/">&larr; Back to site</a></p>
-    </main>
+        <div id="msg" class="msg"></div>
+
+        <div id="editor">
+          <div class="placeholder">Loading editor&hellip;</div>
+        </div>
+
+        <p class="footer-note"><a href="/">&larr; Back to site</a></p>
+      </main>
+    </div>
 
     <script>
       // ─────────────────────────────────────────────────────────────────────
       // Config
       // ─────────────────────────────────────────────────────────────────────
-      const WORKER_URL =
-        "https://lifestory-admin.jacob-69f.workers.dev/update-content";
+      const WORKER_BASE = "https://lifestory-admin.jacob-69f.workers.dev";
+      const VERIFY_URL = WORKER_BASE + "/verify-password";
+      const UPDATE_URL = WORKER_BASE + "/update-content";
       const CURRENT_CONTENT_URL =
         "https://raw.githubusercontent.com/Rafibarides/lifestory-films/main/siteContent.json";
 
@@ -412,41 +536,53 @@
       // ─────────────────────────────────────────────────────────────────────
       let originalContent = null; // pristine snapshot loaded from GitHub
       let workingContent = null;  // user's in-progress edits
+      // Held in memory only after a successful unlock. Never persisted (no
+      // localStorage, no cookie). Cleared on lock. Reused for /update-content
+      // so the user types it once per session.
+      let sessionPassword = null;
 
+      // ─────────────────────────────────────────────────────────────────────
+      // Element refs
+      // ─────────────────────────────────────────────────────────────────────
+      const lockScreen = document.getElementById("lockScreen");
+      const lockForm = document.getElementById("lockForm");
+      const lockPassword = document.getElementById("lockPassword");
+      const unlockBtn = document.getElementById("unlockBtn");
+      const lockMsg = document.getElementById("lockMsg");
+
+      const appShell = document.getElementById("appShell");
+      const lockAgainBtn = document.getElementById("lockAgainBtn");
       const editorEl = document.getElementById("editor");
       const msgEl = document.getElementById("msg");
       const statusBarEl = document.getElementById("statusBar");
       const statusTextEl = document.getElementById("statusText");
-      const passwordInput = document.getElementById("password");
       const publishBtn = document.getElementById("publishBtn");
       const reloadBtn = document.getElementById("reloadBtn");
 
       // ─────────────────────────────────────────────────────────────────────
-      // UI helpers
+      // Helpers
       // ─────────────────────────────────────────────────────────────────────
       function showMsg(html, kind) {
         msgEl.innerHTML = html;
         msgEl.className = `msg show ${kind || "info"}`;
       }
+      function clearMsg() { msgEl.className = "msg"; }
 
-      function clearMsg() {
-        msgEl.className = "msg";
+      function showLockMsg(html, kind) {
+        lockMsg.innerHTML = html;
+        lockMsg.className = `lock-msg show ${kind || "error"}`;
       }
+      function clearLockMsg() { lockMsg.className = "lock-msg"; }
 
       function escapeHtml(s) {
         const map = {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
+          "&": "&amp;", "<": "&lt;", ">": "&gt;",
+          '"': "&quot;", "'": "&#39;",
         };
         return String(s).replace(/[&<>"']/g, (c) => map[c]);
       }
 
-      function deepClone(obj) {
-        return JSON.parse(JSON.stringify(obj));
-      }
+      function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
       function getNested(obj, path) {
         let cur = obj;
@@ -461,9 +597,6 @@
       }
 
       function diffPaths(a, b, path = []) {
-        // Walk the structure of `a` and return all leaf paths whose values
-        // differ in `b`. Assumes `a` and `b` have the same shape (which they
-        // always do here — `b` is a deep clone of `a` then edited in place).
         const out = [];
         if (Array.isArray(a)) {
           for (let i = 0; i < a.length; i++) {
@@ -480,8 +613,98 @@
       }
 
       // ─────────────────────────────────────────────────────────────────────
-      // Editor rendering — based on the original json-editor.html, but with
-      // dark styling and a per-field "changed" indicator.
+      // Lock / unlock
+      // ─────────────────────────────────────────────────────────────────────
+      async function unlock(password) {
+        clearLockMsg();
+        unlockBtn.disabled = true;
+        const oldLabel = unlockBtn.textContent;
+        unlockBtn.textContent = "Verifying\u2026";
+        try {
+          const res = await fetch(VERIFY_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + password,
+            },
+          });
+          if (res.status === 401) {
+            showLockMsg("Incorrect password.", "error");
+            unlockBtn.disabled = false;
+            unlockBtn.textContent = oldLabel;
+            lockPassword.select();
+            return;
+          }
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            showLockMsg(
+              "Verification failed: " +
+                escapeHtml(data.error || "HTTP " + res.status),
+              "error",
+            );
+            unlockBtn.disabled = false;
+            unlockBtn.textContent = oldLabel;
+            return;
+          }
+          // Success: hold the password in memory and reveal the app.
+          sessionPassword = password;
+          lockPassword.value = "";
+          lockScreen.hidden = true;
+          appShell.hidden = false;
+          loadContent();
+        } catch (err) {
+          showLockMsg(
+            "Network error contacting the worker: " +
+              escapeHtml(err.message || String(err)),
+            "error",
+          );
+          unlockBtn.disabled = false;
+          unlockBtn.textContent = oldLabel;
+        }
+      }
+
+      function lockNow() {
+        // Discard everything sensitive and restore the lock screen.
+        sessionPassword = null;
+        originalContent = null;
+        workingContent = null;
+        editorEl.innerHTML =
+          '<div class="placeholder">Loading editor&hellip;</div>';
+        clearMsg();
+        appShell.hidden = true;
+        lockScreen.hidden = false;
+        unlockBtn.disabled = false;
+        unlockBtn.textContent = "Unlock editor";
+        lockPassword.focus();
+      }
+
+      lockForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const pwd = lockPassword.value;
+        if (!pwd) return;
+        unlock(pwd);
+      });
+
+      lockAgainBtn.addEventListener("click", () => {
+        const changed =
+          originalContent && workingContent
+            ? diffPaths(originalContent, workingContent)
+            : [];
+        if (changed.length > 0) {
+          const ok = confirm(
+            "You have " +
+              changed.length +
+              " unsaved change" +
+              (changed.length === 1 ? "" : "s") +
+              ". Lock anyway and discard?",
+          );
+          if (!ok) return;
+        }
+        lockNow();
+      });
+
+      // ─────────────────────────────────────────────────────────────────────
+      // Editor rendering
       // ─────────────────────────────────────────────────────────────────────
       function renderEditor(data) {
         editorEl.innerHTML = "";
@@ -541,11 +764,9 @@
 
         const body = document.createElement("div");
         body.className = "card-body";
-
         for (const field of card.fields) {
           body.appendChild(renderField(field));
         }
-
         cardEl.appendChild(body);
         return cardEl;
       }
@@ -613,7 +834,7 @@
             '<span class="changes-count">' +
             count +
             (count === 1 ? " change" : " changes") +
-            "</span> pending. Type the password and click Publish to push them live.";
+            "</span> pending. Click Publish to push them live.";
           publishBtn.disabled = false;
           publishBtn.textContent = "Publish to live site";
         }
@@ -631,7 +852,6 @@
           '<div class="placeholder">Loading editor&hellip;</div>';
 
         try {
-          // cache: no-store + ts query param to dodge CDN caches.
           const url = CURRENT_CONTENT_URL + "?_=" + Date.now();
           const res = await fetch(url, { cache: "no-store" });
           if (!res.ok) throw new Error("HTTP " + res.status);
@@ -655,10 +875,11 @@
       }
 
       async function publish() {
-        const password = passwordInput.value.trim();
-        if (!password) {
-          showMsg("Type the admin password before publishing.", "error");
-          passwordInput.focus();
+        if (!sessionPassword) {
+          showMsg(
+            "Session expired. Please lock and unlock again.",
+            "error",
+          );
           return;
         }
         if (!workingContent) {
@@ -676,15 +897,26 @@
         clearMsg();
 
         try {
-          const res = await fetch(WORKER_URL, {
+          const res = await fetch(UPDATE_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer " + password,
+              Authorization: "Bearer " + sessionPassword,
             },
             body: JSON.stringify({ content: workingContent }),
           });
           const data = await res.json().catch(() => ({}));
+
+          if (res.status === 401) {
+            // Worker rejected the cached session password — force a re-lock.
+            showMsg(
+              "Password rejected. Locking the editor; please unlock again.",
+              "error",
+            );
+            sessionPassword = null;
+            setTimeout(lockNow, 1500);
+            return;
+          }
           if (!res.ok) {
             showMsg(
               "Publish failed: " +
@@ -695,8 +927,7 @@
             publishBtn.textContent = "Publish to live site";
             return;
           }
-          // Success: bake the working content as the new "original" so dirty
-          // state resets and the user sees a clean editor again.
+
           originalContent = deepClone(workingContent);
           refreshChangedMarkers();
           let html =
@@ -742,7 +973,6 @@
       publishBtn.addEventListener("click", publish);
       reloadBtn.addEventListener("click", reload);
 
-      // Warn before leaving with unsaved changes.
       window.addEventListener("beforeunload", (e) => {
         if (!originalContent || !workingContent) return;
         const changed = diffPaths(originalContent, workingContent);
@@ -752,23 +982,20 @@
         }
       });
 
-      // Keyboard shortcut: Cmd/Ctrl+Enter from anywhere triggers publish.
       document.addEventListener("keydown", (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+          if (appShell.hidden) return;
           e.preventDefault();
           if (!publishBtn.disabled) publish();
         }
       });
 
-      // Sanity check: warn if the worker URL hasn't been configured.
-      if (WORKER_URL.includes("YOUR-CF-SUBDOMAIN")) {
-        showMsg(
-          "Setup incomplete: <code>WORKER_URL</code> in <code>public/admin/index.html</code> still has the placeholder. Replace <code>YOUR-CF-SUBDOMAIN</code> with the URL Wrangler printed (see <code>worker/README.md</code>).",
+      if (WORKER_BASE.includes("YOUR-CF-SUBDOMAIN")) {
+        showLockMsg(
+          "Setup incomplete: <code>WORKER_BASE</code> in <code>public/admin/index.html</code> still has the placeholder. Replace <code>YOUR-CF-SUBDOMAIN</code> with the URL Wrangler printed (see <code>worker/README.md</code>).",
           "error",
         );
       }
-
-      loadContent();
     </script>
   </body>
 </html>
