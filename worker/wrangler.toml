@@ -1,0 +1,16 @@
+name = "lifestory-admin"
+main = "src/index.js"
+compatibility_date = "2025-05-01"
+
+# Secrets are NOT stored here. Set them with:
+#   npx wrangler secret put GITHUB_TOKEN
+#   npx wrangler secret put ADMIN_PASSWORD
+#
+# Non-secret config goes in [vars] below. Update GITHUB_OWNER / GITHUB_REPO
+# / GITHUB_BRANCH / ALLOWED_ORIGIN if you fork this site.
+[vars]
+GITHUB_OWNER = "Rafibarides"
+GITHUB_REPO = "lifestory-films"
+GITHUB_BRANCH = "main"
+GITHUB_PATH = "siteContent.json"
+ALLOWED_ORIGIN = "https://yourlifedocumentary.com"
