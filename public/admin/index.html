@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#1f0f16" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>LifeStory Films Admin</title>
@@ -11,203 +11,292 @@
       :root {
         --bg: #1f0f16;
         --surface: #2a1620;
+        --surface-2: #34202a;
         --ink: #faf7ef;
         --muted: rgba(250, 247, 239, 0.6);
+        --faint: rgba(250, 247, 239, 0.35);
         --accent: #db9436;
         --rule: rgba(250, 247, 239, 0.14);
         --error: #ff6b6b;
         --ok: #5fd49a;
+        --dirty: #db9436;
         --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont,
           "Segoe UI", Roboto, sans-serif;
         --font-display: "Baskerville", "Georgia", serif;
+        --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       }
 
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
       body {
         background: var(--bg);
         color: var(--ink);
         font-family: var(--font-sans);
         line-height: 1.5;
         min-height: 100vh;
-        display: flex;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(31, 15, 22, 0.92);
+        backdrop-filter: saturate(150%) blur(8px);
+        -webkit-backdrop-filter: saturate(150%) blur(8px);
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .topbar-inner {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 14px 24px;
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 14px;
         align-items: center;
-        justify-content: center;
-        padding: 24px;
       }
 
-      .card {
-        width: 100%;
-        max-width: 560px;
-        background: var(--surface);
-        border-radius: 16px;
-        padding: 40px;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
-      }
-
-      h1 {
-        font-family: var(--font-display);
-        font-size: 32px;
-        margin: 0 0 4px;
-        letter-spacing: -0.01em;
-      }
-
-      .eyebrow {
-        font-size: 11px;
+      .brand .eyebrow {
+        font-size: 10px;
         text-transform: uppercase;
         letter-spacing: 0.22em;
         color: var(--accent);
-        margin-bottom: 12px;
+        margin-bottom: 2px;
       }
 
-      .lede {
-        color: var(--muted);
-        margin: 0 0 28px;
-        font-size: 14.5px;
+      .brand h1 {
+        font-family: var(--font-display);
+        font-size: 18px;
+        margin: 0;
+        letter-spacing: -0.01em;
       }
 
-      label {
-        display: block;
-        font-size: 12px;
+      .pwd {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pwd label {
+        font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 0.16em;
         color: var(--muted);
-        margin-bottom: 8px;
       }
 
-      input[type="password"],
-      input[type="text"] {
-        width: 100%;
-        padding: 12px 14px;
+      .pwd input {
+        width: 180px;
+        padding: 9px 12px;
         background: rgba(0, 0, 0, 0.25);
         border: 1px solid var(--rule);
-        border-radius: 10px;
+        border-radius: 8px;
         color: var(--ink);
         font-family: inherit;
-        font-size: 15px;
+        font-size: 14px;
         outline: none;
         transition: border-color 160ms;
       }
 
-      input:focus {
+      .pwd input:focus {
         border-color: var(--accent);
       }
 
-      .field {
-        margin-bottom: 20px;
-      }
-
-      .drop {
-        border: 1.5px dashed var(--rule);
-        border-radius: 12px;
-        padding: 36px 20px;
-        text-align: center;
-        cursor: pointer;
-        transition:
-          border-color 160ms,
-          background 160ms;
-        margin-bottom: 8px;
-      }
-
-      .drop:hover,
-      .drop.dragover {
-        border-color: var(--accent);
-        background: rgba(219, 148, 54, 0.05);
-      }
-
-      .drop.has-file {
-        border-style: solid;
-        border-color: var(--ok);
-        background: rgba(95, 212, 154, 0.06);
-      }
-
-      .drop input[type="file"] {
-        display: none;
-      }
-
-      .drop strong {
-        display: block;
-        font-size: 16px;
-        margin-bottom: 4px;
-      }
-
-      .drop small {
-        color: var(--muted);
-        font-size: 13px;
-      }
-
-      .filename {
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-size: 13px;
-        color: var(--ok);
-        margin-top: 8px;
-        word-break: break-all;
-      }
-
-      .summary {
-        margin-top: 16px;
-        padding: 14px 16px;
-        background: rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
-        font-size: 13px;
-        color: var(--muted);
-        border: 1px solid var(--rule);
-      }
-
-      .summary strong {
-        color: var(--ink);
-      }
-
-      button.primary {
-        width: 100%;
-        margin-top: 16px;
-        padding: 14px 18px;
+      .btn {
         font-family: inherit;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.01em;
+        padding: 10px 18px;
         background: var(--accent);
         color: var(--bg);
         border: 0;
-        border-radius: 10px;
+        border-radius: 8px;
         cursor: pointer;
-        transition:
-          opacity 160ms,
-          transform 100ms;
+        transition: opacity 160ms, transform 100ms;
+        white-space: nowrap;
       }
 
-      button.primary:hover:not(:disabled) {
-        opacity: 0.9;
+      .btn:hover:not(:disabled) { opacity: 0.9; }
+      .btn:active:not(:disabled) { transform: scale(0.98); }
+      .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+      .btn.secondary {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--rule);
       }
 
-      button.primary:active:not(:disabled) {
-        transform: scale(0.99);
+      .btn.secondary:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
       }
 
-      button.primary:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
+      main {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .lede {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 4px 0 24px;
+        max-width: 60ch;
+      }
+
+      .status-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 18px;
+        margin-bottom: 16px;
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .status-bar.dirty {
+        border-color: var(--dirty);
+        color: var(--ink);
+      }
+
+      .changes-count {
+        color: var(--dirty);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .status-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .status-actions .btn {
+        padding: 7px 12px;
+        font-size: 12px;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        margin-bottom: 14px;
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 11px 16px;
+        background: var(--surface-2);
+        border-bottom: 1px solid var(--rule);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-family: var(--font-mono);
+      }
+
+      .card-header .path-seg + .path-seg::before {
+        content: " \203A ";
+        color: var(--faint);
+        font-weight: 400;
+      }
+
+      .card-header .path-seg {
+        color: var(--ink);
+      }
+
+      .card-header .path-seg:not(:last-child) {
+        color: var(--faint);
+        font-weight: 400;
+      }
+
+      .card-body {
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .field-row {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+
+      .field-key {
+        font-size: 12px;
+        color: var(--muted);
+        padding-top: 9px;
+        word-break: break-word;
+        font-weight: 500;
+        font-family: var(--font-mono);
+      }
+
+      .field-value input,
+      .field-value textarea {
+        width: 100%;
+        font-family: inherit;
+        font-size: 14px;
+        border: 1px solid var(--rule);
+        border-radius: 7px;
+        padding: 8px 11px;
+        color: var(--ink);
+        background: rgba(0, 0, 0, 0.25);
+        resize: vertical;
+        line-height: 1.55;
+        transition: border-color 120ms;
+        outline: none;
+      }
+
+      .field-value textarea {
+        min-height: 64px;
+      }
+
+      .field-value input:focus,
+      .field-value textarea:focus {
+        border-color: var(--accent);
+      }
+
+      .field-value.changed input,
+      .field-value.changed textarea {
+        border-color: var(--dirty);
+        background: rgba(219, 148, 54, 0.06);
+      }
+
+      .field-row .changed-tag {
+        margin-top: 4px;
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        color: var(--dirty);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .placeholder {
+        padding: 60px 20px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+        background: var(--surface);
+        border: 1px dashed var(--rule);
+        border-radius: 12px;
       }
 
       .msg {
-        margin-top: 18px;
+        margin: 14px 0;
         padding: 12px 14px;
-        border-radius: 10px;
-        font-size: 14px;
+        border-radius: 8px;
+        font-size: 13.5px;
         display: none;
+        line-height: 1.5;
       }
 
-      .msg.show {
-        display: block;
-      }
+      .msg.show { display: block; }
 
       .msg.error {
         background: rgba(255, 107, 107, 0.1);
@@ -221,234 +310,127 @@
         color: var(--ok);
       }
 
-      .msg a {
-        color: inherit;
+      .msg.info {
+        background: rgba(219, 148, 54, 0.08);
+        border: 1px solid rgba(219, 148, 54, 0.3);
+        color: var(--accent);
+      }
+
+      .msg a { color: inherit; text-decoration: underline; }
+      .msg code {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1px 6px;
+        border-radius: 4px;
       }
 
       .footer-note {
-        margin-top: 28px;
+        margin-top: 32px;
+        padding-bottom: 32px;
         font-size: 12px;
         color: var(--muted);
         text-align: center;
       }
 
-      .footer-note a {
-        color: var(--muted);
+      .footer-note a { color: var(--muted); }
+
+      @media (max-width: 720px) {
+        .topbar-inner {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .pwd { width: 100%; }
+        .pwd input { flex: 1; width: auto; }
+        .btn { width: 100%; }
+        .field-row {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        .field-key { padding-top: 0; }
       }
     </style>
   </head>
   <body>
-    <main class="card">
-      <div class="eyebrow">LifeStory Films</div>
-      <h1>Content Admin</h1>
-      <p class="lede">
-        Drop a new <code>siteContent.json</code> to update the live site. The
-        file you drop will overwrite <code>siteContent.json</code> in the repo
-        and the site will rebuild automatically (~60s).
-      </p>
-
-      <form id="form">
-        <div class="field">
-          <label for="password">Admin password</label>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="eyebrow">LifeStory Films</div>
+          <h1>Content Admin</h1>
+        </div>
+        <div class="pwd">
+          <label for="password">Password</label>
           <input
             id="password"
             type="password"
             autocomplete="current-password"
-            required
+            placeholder="Admin password"
           />
         </div>
-
-        <div class="field">
-          <label>New content file</label>
-          <label class="drop" id="drop">
-            <input id="file" type="file" accept="application/json,.json" />
-            <strong>Drop JSON here, or click to choose</strong>
-            <small>Any filename is OK. It will be saved as siteContent.json.</small>
-            <div id="filename" class="filename"></div>
-          </label>
-          <div id="summary" class="summary" style="display: none"></div>
-        </div>
-
-        <button id="submit" class="primary" type="submit" disabled>
+        <button id="publishBtn" class="btn" disabled>
           Publish to live site
         </button>
+      </div>
+    </div>
 
-        <div id="msg" class="msg"></div>
-      </form>
-
-      <p class="footer-note">
-        <a href="/">&larr; Back to site</a>
+    <main>
+      <p class="lede">
+        Edit your site content below. Changes are tracked locally and only go
+        live when you click <strong>Publish</strong>. The current content is
+        loaded from <code>main</code> on every page load.
       </p>
+
+      <div id="statusBar" class="status-bar">
+        <span id="statusText">Loading current content from GitHub&hellip;</span>
+        <div class="status-actions">
+          <button id="reloadBtn" class="btn secondary" disabled>
+            Reload from main
+          </button>
+        </div>
+      </div>
+
+      <div id="msg" class="msg"></div>
+
+      <div id="editor">
+        <div class="placeholder">Loading editor&hellip;</div>
+      </div>
+
+      <p class="footer-note"><a href="/">&larr; Back to site</a></p>
     </main>
 
     <script>
       // ─────────────────────────────────────────────────────────────────────
-      // Config: edit WORKER_URL after you deploy the Cloudflare Worker.
-      // The path /update-content is handled by the worker we ship.
+      // Config
       // ─────────────────────────────────────────────────────────────────────
       const WORKER_URL =
         "https://lifestory-admin.jacob-69f.workers.dev/update-content";
-
-      // GitHub raw URL of the current siteContent.json on `main`. Used to
-      // shape-check the dropped file (top-level keys must match) so a
-      // malformed upload can't blank the site. raw.githubusercontent.com
-      // sets permissive CORS on public files, so the browser can read it.
       const CURRENT_CONTENT_URL =
         "https://raw.githubusercontent.com/Rafibarides/lifestory-films/main/siteContent.json";
 
-      let currentContent = null;
-      let parsedNew = null;
+      // ─────────────────────────────────────────────────────────────────────
+      // State
+      // ─────────────────────────────────────────────────────────────────────
+      let originalContent = null; // pristine snapshot loaded from GitHub
+      let workingContent = null;  // user's in-progress edits
 
-      // Sanity check: warn loudly if the worker URL hasn't been configured yet.
-      const isUnconfigured = WORKER_URL.includes("YOUR-CF-SUBDOMAIN");
-
-      const fileInput = document.getElementById("file");
-      const drop = document.getElementById("drop");
-      const filenameEl = document.getElementById("filename");
-      const summaryEl = document.getElementById("summary");
-      const submitBtn = document.getElementById("submit");
-      const msg = document.getElementById("msg");
+      const editorEl = document.getElementById("editor");
+      const msgEl = document.getElementById("msg");
+      const statusBarEl = document.getElementById("statusBar");
+      const statusTextEl = document.getElementById("statusText");
       const passwordInput = document.getElementById("password");
-      const form = document.getElementById("form");
+      const publishBtn = document.getElementById("publishBtn");
+      const reloadBtn = document.getElementById("reloadBtn");
 
-      function showMsg(text, kind = "error") {
-        msg.textContent = "";
-        msg.innerHTML = text;
-        msg.className = `msg show ${kind}`;
+      // ─────────────────────────────────────────────────────────────────────
+      // UI helpers
+      // ─────────────────────────────────────────────────────────────────────
+      function showMsg(html, kind) {
+        msgEl.innerHTML = html;
+        msgEl.className = `msg show ${kind || "info"}`;
       }
 
       function clearMsg() {
-        msg.className = "msg";
-      }
-
-      async function loadCurrent() {
-        try {
-          const res = await fetch(CURRENT_CONTENT_URL, { cache: "no-store" });
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          currentContent = await res.json();
-        } catch (err) {
-          showMsg(
-            "Couldn't load the current siteContent.json from GitHub. The shape check will be skipped.",
-            "error",
-          );
-        }
-      }
-      loadCurrent();
-
-      if (isUnconfigured) {
-        showMsg(
-          "Setup incomplete: WORKER_URL in <code>public/admin/index.html</code> still has the placeholder. Deploy the Cloudflare Worker (see <code>worker/README.md</code>) and replace <code>YOUR-CF-SUBDOMAIN</code> with the URL Wrangler printed.",
-          "error",
-        );
-      }
-
-      // ─── Drag and drop wiring ───────────────────────────────────────────
-      ["dragenter", "dragover"].forEach((evt) => {
-        drop.addEventListener(evt, (e) => {
-          e.preventDefault();
-          drop.classList.add("dragover");
-        });
-      });
-      ["dragleave", "drop"].forEach((evt) => {
-        drop.addEventListener(evt, (e) => {
-          e.preventDefault();
-          drop.classList.remove("dragover");
-        });
-      });
-      drop.addEventListener("drop", (e) => {
-        const file = e.dataTransfer?.files?.[0];
-        if (file) handleFile(file);
-      });
-      fileInput.addEventListener("change", () => {
-        const file = fileInput.files?.[0];
-        if (file) handleFile(file);
-      });
-
-      // ─── Validate dropped file ──────────────────────────────────────────
-      async function handleFile(file) {
-        clearMsg();
-        parsedNew = null;
-        submitBtn.disabled = true;
-        drop.classList.remove("has-file");
-        filenameEl.textContent = "";
-        summaryEl.style.display = "none";
-
-        if (!file.name.toLowerCase().endsWith(".json")) {
-          showMsg("That file isn't a .json file.", "error");
-          return;
-        }
-        if (file.size > 1024 * 1024) {
-          showMsg("File is over 1MB. siteContent.json should be much smaller.", "error");
-          return;
-        }
-
-        let text;
-        try {
-          text = await file.text();
-        } catch (err) {
-          showMsg("Couldn't read the file.", "error");
-          return;
-        }
-
-        let obj;
-        try {
-          obj = JSON.parse(text);
-        } catch (err) {
-          showMsg("That file is not valid JSON: " + escapeHtml(err.message), "error");
-          return;
-        }
-
-        if (currentContent) {
-          const currentKeys = Object.keys(currentContent).sort();
-          const newKeys = Object.keys(obj).sort();
-          const missing = currentKeys.filter((k) => !newKeys.includes(k));
-          const added = newKeys.filter((k) => !currentKeys.includes(k));
-          if (missing.length) {
-            showMsg(
-              "Top-level keys missing in the new file: <strong>" +
-                missing.map(escapeHtml).join(", ") +
-                "</strong>. Refusing to publish to avoid breaking the site.",
-              "error",
-            );
-            return;
-          }
-          if (added.length) {
-            // New keys are allowed but flagged; site will just ignore them
-            // unless components are updated to read them.
-            const note =
-              "Note: added top-level keys: <strong>" +
-                added.map(escapeHtml).join(", ") +
-                "</strong> (these won't render unless components reference them).";
-            showMsg(note, "ok");
-          }
-        }
-
-        parsedNew = obj;
-        drop.classList.add("has-file");
-        filenameEl.textContent =
-          file.name + " \u2192 will be saved as siteContent.json";
-        summaryEl.innerHTML = renderSummary(obj);
-        summaryEl.style.display = "block";
-        submitBtn.disabled = false;
-      }
-
-      function renderSummary(obj) {
-        const keys = Object.keys(obj);
-        const bytes = new Blob([JSON.stringify(obj)]).size;
-        return (
-          "<strong>" +
-          keys.length +
-          "</strong> top-level sections, <strong>" +
-          formatBytes(bytes) +
-          "</strong> total. Sections: " +
-          keys.map((k) => "<code>" + escapeHtml(k) + "</code>").join(", ")
-        );
-      }
-
-      function formatBytes(n) {
-        if (n < 1024) return n + " B";
-        if (n < 1024 * 1024) return (n / 1024).toFixed(1) + " KB";
-        return (n / 1024 / 1024).toFixed(2) + " MB";
+        msgEl.className = "msg";
       }
 
       function escapeHtml(s) {
@@ -462,18 +444,235 @@
         return String(s).replace(/[&<>"']/g, (c) => map[c]);
       }
 
-      // ─── Submit ────────────────────────────────────────────────────────
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        if (!parsedNew) return;
+      function deepClone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+      }
+
+      function getNested(obj, path) {
+        let cur = obj;
+        for (const seg of path) cur = cur?.[seg];
+        return cur;
+      }
+
+      function setNested(obj, path, value) {
+        let cur = obj;
+        for (let i = 0; i < path.length - 1; i++) cur = cur[path[i]];
+        cur[path[path.length - 1]] = value;
+      }
+
+      function diffPaths(a, b, path = []) {
+        // Walk the structure of `a` and return all leaf paths whose values
+        // differ in `b`. Assumes `a` and `b` have the same shape (which they
+        // always do here — `b` is a deep clone of `a` then edited in place).
+        const out = [];
+        if (Array.isArray(a)) {
+          for (let i = 0; i < a.length; i++) {
+            out.push(...diffPaths(a[i], b?.[i], [...path, String(i)]));
+          }
+        } else if (a && typeof a === "object") {
+          for (const k of Object.keys(a)) {
+            out.push(...diffPaths(a[k], b?.[k], [...path, k]));
+          }
+        } else {
+          if (a !== b) out.push(path);
+        }
+        return out;
+      }
+
+      // ─────────────────────────────────────────────────────────────────────
+      // Editor rendering — based on the original json-editor.html, but with
+      // dark styling and a per-field "changed" indicator.
+      // ─────────────────────────────────────────────────────────────────────
+      function renderEditor(data) {
+        editorEl.innerHTML = "";
+        const cards = collectCards(data, []);
+        for (const card of cards) {
+          if (card.fields.length === 0) continue;
+          editorEl.appendChild(renderCard(card));
+        }
+        refreshChangedMarkers();
+      }
+
+      function collectCards(obj, path) {
+        const cards = [];
+        if (Array.isArray(obj)) {
+          obj.forEach((item, i) => {
+            cards.push(...collectCards(item, [...path, String(i)]));
+          });
+        } else if (obj && typeof obj === "object") {
+          const fields = [];
+          const nested = [];
+          for (const [k, v] of Object.entries(obj)) {
+            if (
+              typeof v === "string" ||
+              typeof v === "number" ||
+              typeof v === "boolean"
+            ) {
+              fields.push({ key: k, value: v, fullPath: [...path, k] });
+            } else {
+              nested.push([k, v]);
+            }
+          }
+          if (fields.length > 0) cards.push({ path, fields });
+          for (const [k, v] of nested) {
+            cards.push(...collectCards(v, [...path, k]));
+          }
+        }
+        return cards;
+      }
+
+      function renderCard(card) {
+        const cardEl = document.createElement("div");
+        cardEl.className = "card";
+
+        const header = document.createElement("div");
+        header.className = "card-header";
+        if (card.path.length === 0) {
+          header.textContent = "Root";
+        } else {
+          card.path.forEach((seg) => {
+            const span = document.createElement("span");
+            span.className = "path-seg";
+            span.textContent = seg;
+            header.appendChild(span);
+          });
+        }
+        cardEl.appendChild(header);
+
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        for (const field of card.fields) {
+          body.appendChild(renderField(field));
+        }
+
+        cardEl.appendChild(body);
+        return cardEl;
+      }
+
+      function renderField(field) {
+        const row = document.createElement("div");
+        row.className = "field-row";
+
+        const keyEl = document.createElement("div");
+        keyEl.className = "field-key";
+        keyEl.textContent = field.key;
+        row.appendChild(keyEl);
+
+        const valEl = document.createElement("div");
+        valEl.className = "field-value";
+        valEl.dataset.path = JSON.stringify(field.fullPath);
+
+        const text = String(field.value);
+        const isLong = text.length > 80 || text.includes("\n");
+        const input = document.createElement(isLong ? "textarea" : "input");
+        if (!isLong) input.type = "text";
+        input.value = text;
+        input.addEventListener("input", () => onInput(field.fullPath, input));
+        valEl.appendChild(input);
+        row.appendChild(valEl);
+
+        return row;
+      }
+
+      function onInput(path, input) {
+        const orig = getNested(originalContent, path);
+        let coerced;
+        if (typeof orig === "number") {
+          const n = Number(input.value);
+          coerced = Number.isNaN(n) ? input.value : n;
+        } else if (typeof orig === "boolean") {
+          coerced = input.value === "true";
+        } else {
+          coerced = input.value;
+        }
+        setNested(workingContent, path, coerced);
+        refreshChangedMarkers();
+      }
+
+      function refreshChangedMarkers() {
+        if (!originalContent || !workingContent) return;
+        const changed = diffPaths(originalContent, workingContent);
+        const changedSet = new Set(changed.map((p) => JSON.stringify(p)));
+
+        editorEl.querySelectorAll(".field-value").forEach((el) => {
+          const isChanged = changedSet.has(el.dataset.path);
+          el.classList.toggle("changed", isChanged);
+        });
+
+        const count = changed.length;
+        if (count === 0) {
+          statusBarEl.classList.remove("dirty");
+          statusTextEl.innerHTML =
+            "Editor synced with <code>main</code>. No pending changes.";
+          publishBtn.disabled = true;
+          publishBtn.textContent = "Publish to live site";
+        } else {
+          statusBarEl.classList.add("dirty");
+          statusTextEl.innerHTML =
+            '<span class="changes-count">' +
+            count +
+            (count === 1 ? " change" : " changes") +
+            "</span> pending. Type the password and click Publish to push them live.";
+          publishBtn.disabled = false;
+          publishBtn.textContent = "Publish to live site";
+        }
+      }
+
+      // ─────────────────────────────────────────────────────────────────────
+      // Loading / publishing
+      // ─────────────────────────────────────────────────────────────────────
+      async function loadContent() {
+        clearMsg();
+        statusTextEl.innerHTML = "Loading current content from GitHub&hellip;";
+        publishBtn.disabled = true;
+        reloadBtn.disabled = true;
+        editorEl.innerHTML =
+          '<div class="placeholder">Loading editor&hellip;</div>';
+
+        try {
+          // cache: no-store + ts query param to dodge CDN caches.
+          const url = CURRENT_CONTENT_URL + "?_=" + Date.now();
+          const res = await fetch(url, { cache: "no-store" });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const data = await res.json();
+          originalContent = deepClone(data);
+          workingContent = deepClone(data);
+          renderEditor(workingContent);
+          reloadBtn.disabled = false;
+        } catch (err) {
+          editorEl.innerHTML =
+            '<div class="placeholder">Failed to load <code>siteContent.json</code> from GitHub.</div>';
+          statusTextEl.textContent = "Load failed.";
+          showMsg(
+            "Couldn't load the current site content from GitHub: " +
+              escapeHtml(err.message || String(err)) +
+              ". Refresh the page to retry.",
+            "error",
+          );
+          reloadBtn.disabled = false;
+        }
+      }
+
+      async function publish() {
         const password = passwordInput.value.trim();
         if (!password) {
-          showMsg("Enter the admin password.", "error");
+          showMsg("Type the admin password before publishing.", "error");
+          passwordInput.focus();
+          return;
+        }
+        if (!workingContent) {
+          showMsg("Editor isn't loaded yet.", "error");
+          return;
+        }
+        const changed = diffPaths(originalContent, workingContent);
+        if (changed.length === 0) {
+          showMsg("Nothing to publish — there are no changes.", "info");
           return;
         }
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Publishing\u2026";
+        publishBtn.disabled = true;
+        publishBtn.textContent = "Publishing\u2026";
         clearMsg();
 
         try {
@@ -483,7 +682,7 @@
               "Content-Type": "application/json",
               Authorization: "Bearer " + password,
             },
-            body: JSON.stringify({ content: parsedNew }),
+            body: JSON.stringify({ content: workingContent }),
           });
           const data = await res.json().catch(() => ({}));
           if (!res.ok) {
@@ -492,12 +691,19 @@
                 escapeHtml(data.error || "HTTP " + res.status),
               "error",
             );
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Publish to live site";
+            publishBtn.disabled = false;
+            publishBtn.textContent = "Publish to live site";
             return;
           }
+          // Success: bake the working content as the new "original" so dirty
+          // state resets and the user sees a clean editor again.
+          originalContent = deepClone(workingContent);
+          refreshChangedMarkers();
           let html =
-            "Published. The site will rebuild and go live in ~60s.";
+            "Published " +
+            changed.length +
+            (changed.length === 1 ? " change" : " changes") +
+            ". The site will rebuild and go live in ~60 seconds.";
           if (data.commitUrl) {
             html +=
               ' <a href="' +
@@ -505,13 +711,64 @@
               '" target="_blank" rel="noopener">View commit \u2197</a>';
           }
           showMsg(html, "ok");
-          submitBtn.textContent = "Published";
         } catch (err) {
-          showMsg("Network error: " + escapeHtml(err.message || err), "error");
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Publish to live site";
+          showMsg(
+            "Network error: " + escapeHtml(err.message || String(err)),
+            "error",
+          );
+          publishBtn.disabled = false;
+          publishBtn.textContent = "Publish to live site";
+        }
+      }
+
+      function reload() {
+        const changed = diffPaths(originalContent || {}, workingContent || {});
+        if (changed.length > 0) {
+          const ok = confirm(
+            "You have " +
+              changed.length +
+              " unsaved change" +
+              (changed.length === 1 ? "" : "s") +
+              ". Reload from main and discard them?",
+          );
+          if (!ok) return;
+        }
+        loadContent();
+      }
+
+      // ─────────────────────────────────────────────────────────────────────
+      // Wiring
+      // ─────────────────────────────────────────────────────────────────────
+      publishBtn.addEventListener("click", publish);
+      reloadBtn.addEventListener("click", reload);
+
+      // Warn before leaving with unsaved changes.
+      window.addEventListener("beforeunload", (e) => {
+        if (!originalContent || !workingContent) return;
+        const changed = diffPaths(originalContent, workingContent);
+        if (changed.length > 0) {
+          e.preventDefault();
+          e.returnValue = "";
         }
       });
+
+      // Keyboard shortcut: Cmd/Ctrl+Enter from anywhere triggers publish.
+      document.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+          e.preventDefault();
+          if (!publishBtn.disabled) publish();
+        }
+      });
+
+      // Sanity check: warn if the worker URL hasn't been configured.
+      if (WORKER_URL.includes("YOUR-CF-SUBDOMAIN")) {
+        showMsg(
+          "Setup incomplete: <code>WORKER_URL</code> in <code>public/admin/index.html</code> still has the placeholder. Replace <code>YOUR-CF-SUBDOMAIN</code> with the URL Wrangler printed (see <code>worker/README.md</code>).",
+          "error",
+        );
+      }
+
+      loadContent();
     </script>
   </body>
 </html>
