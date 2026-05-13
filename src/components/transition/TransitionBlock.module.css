@@ -59,7 +59,9 @@
 }
 
 .imgTop {
-  transition: opacity 120ms linear;
+  /* Very short fade so the JS-driven jump from opacity 1 to 0 reads as a
+     flicker / jump cut, not a long blended overlay. Tune here, not in JS. */
+  transition: opacity 60ms linear;
   will-change: opacity;
 }
 

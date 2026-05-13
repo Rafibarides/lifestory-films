@@ -23,7 +23,7 @@ export default function PackagesSection({ id }) {
   const { packagesSection } = content;
 
   return (
-    <Section id={id} variant="default">
+    <Section id={id} variant="surface">
       <Container>
         <SectionHeading
           eyebrow="Every documentary includes"

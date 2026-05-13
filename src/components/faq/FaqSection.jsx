@@ -10,6 +10,15 @@ export default function FaqSection({ id }) {
   const { faqSection } = content;
   const [openIndex, setOpenIndex] = useState(null);
 
+  // Drop any item that doesn't have BOTH a non-empty question and a
+  // non-empty answer. Lets editors leave placeholder rows in
+  // siteContent.json without producing empty disclosure rows in the UI.
+  const items = (faqSection.items || []).filter(
+    (item) => item && item.question?.trim() && item.answer?.trim(),
+  );
+
+  if (items.length === 0) return null;
+
   return (
     <Section id={id} variant="default">
       <Container width="prose">
@@ -19,7 +28,7 @@ export default function FaqSection({ id }) {
           align="center"
         />
         <div className={styles.list}>
-          {faqSection.items.map((item, i) => (
+          {items.map((item, i) => (
             <FaqItem
               key={i}
               item={item}

@@ -7,30 +7,29 @@ import styles from "./TransitionBlock.module.css";
 // `progress` = 0..1, where 0 is the section just entering from below the
 // viewport and 1 is it just leaving off the top. ~0.5 is centered.
 //
-// The order of events as you scroll:
-//   1. Block enters. OLD image is held (nothing fading yet).
-//   2. Past FADE_START, the OLD image begins dissolving into the YOUNG.
-//   3. By FADE_END, only the YOUNG image is visible.
-//   4. Block stays YOUNG until it exits the top.
+// Behavior:
+//   1. While scroll progress is below FADE_THRESHOLD, the OLD image is held.
+//   2. The instant progress crosses the threshold, the OLD image is hidden.
+//   3. A short CSS opacity transition (see .imgTop in the stylesheet) gives
+//      it the briefest fade so the cut isn't pixel-snapping ugly. The effect
+//      reads as a flicker / jump-cut, NOT a long dissolve where both faces
+//      sit overlaid (which felt uncanny).
 //
 // TILT_DEG is the max rotation applied to the square image container as it
 // scrolls through the viewport (subtle organic motion). 0 disables tilt.
 // -----------------------------------------------------------------------------
-const FADE_START = 0.4;
-const FADE_END = 0.6;
+const FADE_THRESHOLD = 0.5;
 const TILT_DEG = 3.2;
 
 /**
- * Scroll-driven old-to-young image cross-fade, with a subtle tilt on scroll.
+ * Scroll-driven old-to-young image jump-cut, with a subtle tilt on scroll.
  * Degrades gracefully: the "to" (young) image sits beneath the "from" (old)
  * image, so if JS fails to compute progress, the young image is visible.
  */
 export default function TransitionBlock({ pair }) {
   const [ref, progress] = useScrollProgress();
 
-  const fadeSpan = Math.max(0.0001, FADE_END - FADE_START);
-  const fade = Math.max(0, Math.min(1, (progress - FADE_START) / fadeSpan));
-  const fromOpacity = 1 - fade;
+  const fromOpacity = progress < FADE_THRESHOLD ? 1 : 0;
 
   const tilt = (progress - 0.5) * TILT_DEG;
 
