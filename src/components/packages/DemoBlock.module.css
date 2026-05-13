@@ -3,15 +3,42 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   background-color: var(--color-surface);
+  overflow: hidden;
+}
+
+/* The thumbnail / call-to-play state is one big button so the whole frame
+   is a single click target (better mobile UX than a tiny play circle). */
+.posterBtn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  display: block;
+}
+
+.posterImg {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  overflow: hidden;
+  background-color: var(--color-surface);
 }
 
 .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65));
+  transition: background 220ms var(--ease-out);
+}
+
+.posterBtn:hover .overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55));
 }
 
 .inner {
@@ -40,6 +67,7 @@
   font-size: clamp(22px, 2.4vw, 32px);
   color: var(--color-ink);
   max-width: 640px;
+  line-height: 1.2;
 }
 
 .play {
@@ -58,9 +86,22 @@
     transform 220ms var(--ease-out);
 }
 
-.play:hover {
+.posterBtn:hover .play {
   background: var(--color-ink);
   transform: scale(1.04);
+}
+
+/* Once the user has clicked, the <video> takes over the whole frame with
+   native controls. object-fit: contain keeps the full frame visible on any
+   aspect ratio, with letterboxing rather than cropping. */
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  display: block;
 }
 
 @media (max-width: 768px) {
