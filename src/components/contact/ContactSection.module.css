@@ -1,60 +1,103 @@
+/* Override Section's default --space-9 padding-block: the contact section
+   is the smallest content block on the page, so the page rhythm reads
+   better when it's tighter than the editorial sections above it. */
+.section {
+  padding-block: var(--space-7);
+}
+
 .inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: var(--space-5);
-  padding-block: var(--space-5);
 }
 
 .cta {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(28px, 4.4vw, 56px);
+  font-size: clamp(26px, 3.6vw, 44px);
   color: var(--color-cta-ink);
-  max-width: 900px;
-  line-height: 1.1;
+  max-width: 760px;
+  line-height: 1.15;
   letter-spacing: -0.005em;
+  margin: 0;
 }
 
-.links {
+.actions {
   display: flex;
-  align-items: center;
-  gap: var(--space-5);
+  align-items: stretch;
+  gap: var(--space-3);
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: var(--space-2);
 }
 
-.link {
+/* Pill-style action buttons. One filled (primary, for the phone — the
+   path of least friction) and one outlined (secondary, for email). The
+   pair reads as a CTA group, not a list of links. */
+.action {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  color: var(--color-cta-ink);
+  gap: 10px;
+  padding: 13px 24px;
   font-family: var(--font-sans);
-  font-size: 16px;
-  letter-spacing: 0.02em;
-  padding: 10px 6px;
-  transition: opacity 200ms var(--ease-out);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 220ms var(--ease-out),
+    color 220ms var(--ease-out),
+    border-color 220ms var(--ease-out),
+    transform 200ms var(--ease-out);
+  will-change: transform;
 }
 
-.link:hover {
-  opacity: 0.72;
+.action:hover {
+  transform: translateY(-1px);
 }
 
-.dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
+.actionFilled {
+  color: var(--color-cta);
   background: var(--color-cta-ink);
-  opacity: 0.5;
+  border: 1px solid var(--color-cta-ink);
+}
+
+.actionFilled:hover {
+  background: transparent;
+  color: var(--color-cta-ink);
+}
+
+.actionOutline {
+  color: var(--color-cta-ink);
+  background: transparent;
+  border: 1px solid var(--color-cta-ink);
+}
+
+.actionOutline:hover {
+  background: var(--color-cta-ink);
+  color: var(--color-cta);
+}
+
+/* The phone pill should never wrap — the formatted number is short. The
+   email pill is fine to wrap if the address is unusually long. */
+.email {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 @media (max-width: 600px) {
-  .links {
+  .actions {
     flex-direction: column;
-    gap: var(--space-2);
+    width: 100%;
+    max-width: 360px;
   }
-  .dot {
-    display: none;
+  .action {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
   }
 }
