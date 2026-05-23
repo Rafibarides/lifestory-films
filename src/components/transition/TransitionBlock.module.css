@@ -68,16 +68,64 @@
 .copyWrap {
   display: flex;
   align-items: center;
-  max-width: 520px;
+  max-width: 560px;
+}
+
+/* Whole testimonial block: quote on top, attribution under it. */
+.testimonial {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Large decorative opening quote mark, set in the display face so it has
+   real typographic weight. Positioned slightly outside-left of the copy
+   so it reads as a flourish rather than the first character of the
+   sentence. */
+.testimonial::before {
+  content: "\201C"; /* curly opening quote */
+  position: absolute;
+  top: -0.35em;
+  left: -0.45em;
+  font-family: var(--font-display);
+  font-size: clamp(64px, 8vw, 120px);
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
 }
 
 .copy {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
+  font-style: italic;
   font-size: clamp(20px, 2.1vw, 28px);
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--color-ink);
   letter-spacing: -0.005em;
-  font-weight: 300;
+  font-weight: 400;
+  position: relative;
+  /* Smart closing quote, set inline so it tucks tight against the last
+     word rather than dropping to a new line. */
+  white-space: pre-wrap;
+}
+
+.copy::after {
+  content: "\201D"; /* curly closing quote */
+  margin-left: 0.05em;
+  color: var(--color-accent);
+  opacity: 0.5;
+  font-style: normal;
+}
+
+.attribution {
+  margin-top: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 400;
 }
 
 .imageRight .copyWrap {
@@ -122,7 +170,22 @@
     justify-content: center;
   }
 
+  /* On mobile the testimonial is center-aligned, so the decorative opening
+     quote is repositioned above (and centered) instead of floating outside
+     the left edge where it would clip. */
+  .testimonial::before {
+    position: static;
+    display: block;
+    font-size: clamp(48px, 14vw, 80px);
+    text-align: center;
+    margin-bottom: -0.1em;
+  }
+
   .copy {
     font-size: clamp(18px, 5.2vw, 24px);
+  }
+
+  .attribution {
+    text-align: center;
   }
 }

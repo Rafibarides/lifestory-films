@@ -57,7 +57,14 @@ export default function TransitionBlock({ pair }) {
           />
         </div>
         <div className={styles.copyWrap}>
-          <p className={styles.copy}>{pair.copy}</p>
+          <blockquote className={styles.testimonial}>
+            <p className={styles.copy}>{pair.copy}</p>
+            {pair.attribution?.trim() ? (
+              <footer className={styles.attribution}>
+                &mdash; {pair.attribution}
+              </footer>
+            ) : null}
+          </blockquote>
         </div>
       </div>
     </section>

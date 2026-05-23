@@ -75,14 +75,16 @@
         "layout": "imageLeft",
         "imageFrom": "old-lady1.png",
         "imageTo": "young-lady2.png",
-        "copy": ""
+        "copy": "At 95, perhaps I thought it would be difficult but it actually turned out to be a joyful experience...especially reminiscing about years gone by... What fun!!",
+        "attribution": "Ruth"
       },
       {
         "id": "man",
         "layout": "imageRight",
         "imageFrom": "old-man1.png",
         "imageTo": "young-man1.png",
-        "copy": ""
+        "copy": "It was a pleasure to have the team over to discuss things with them. They were flexible and professional, which enabled me to be very comfortable for the interview. It was a good feeling to get some things out and let the family know about it. I found the experience very cathartic, a healthy experience for me!",
+        "attribution": "Howard"
       }
     ]
   },
